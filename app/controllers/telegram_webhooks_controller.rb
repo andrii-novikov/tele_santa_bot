@@ -31,12 +31,20 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def users!(*)
-    users = User.pluck(:username).join("\n")
+    users = User.all.map(&:display_name).join("\n")
     respond_with :message, text: t('telegram_webhooks.registered_users.registered_users', users: users)
   end
 
-  def lets_begin!(*)
+  def lets_party!(*)
+    service = SantaAssignService.new
+    service.call.tap do |result|
+      respond_with :message, text: service.errors.join("\n") unless result
+    end
+  end
 
+  def gift!(*)
+    text = current_user.recipient ? t('.gift', wish: current_user.recipient.wish) : t('.no_recipient')
+    respond_with :message, text: text
   end
 
   private

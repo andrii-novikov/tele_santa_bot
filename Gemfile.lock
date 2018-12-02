@@ -113,6 +113,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
+    petrovich (1.1.1)
     powerpack (0.1.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -255,6 +256,7 @@ DEPENDENCIES
   ffaker
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  petrovich
   pry-byebug
   pry-rails
   puma (~> 3.11)

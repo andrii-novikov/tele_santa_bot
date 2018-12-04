@@ -61,6 +61,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop'
+  gem 'capistrano', '~> 3.8.2'
+  gem 'capistrano-bundler', '1.1.4', require: false
+  gem 'rvm1-capistrano3', '1.4.0', require: false
 end
 
 group :test do

@@ -17,7 +17,7 @@ class MessageService < BaseService
   end
 
   def added_to_group?
-    message.new_chat_members&.any? { |m| m.username == 'tele_santa_bot' }
+    message[:new_chat_members]&.any? { |m| m[:username] == 'tele_santa_bot' }
   end
 
   def add_to_group_message

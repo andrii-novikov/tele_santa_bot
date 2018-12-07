@@ -1,5 +1,3 @@
-Nickname.destroy_all
-
 [
   ['Бармалей', 'Бармалея'],
   ['Вини-Пух', 'Вини-Пуха'],
@@ -17,5 +15,5 @@ Nickname.destroy_all
 end
 
 User.find_each do |u|
-  u.update(nickname: Nickname.free.sample)
+  u.update(nickname: Nickname.free.sample) if u.nickname.blank?
 end

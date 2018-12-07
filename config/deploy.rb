@@ -35,16 +35,25 @@ namespace :deploy do
     end
   end
 
+  desc 'migrations'
+  task :migrate do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, :exec, :"rake db:migrate RAILS_ENV=#{fetch(:stage)}"
+      end
+    end
+  end
+
   desc 'Seeds database'
   task :seed do
     on roles(:app) do
-      invoke 'rvm1:hook'
       within release_path do
         execute :bundle, :exec, :"rake db:seed RAILS_ENV=#{fetch(:stage)}"
       end
     end
   end
 
+  after :finished, 'deploy:migrate'
   after :finished, 'deploy:seed'
   after :finished, 'app:restart'
 end
@@ -54,7 +63,6 @@ namespace :app do
   desc 'Start application'
   task :start do
     on roles(:app) do
-      invoke 'rvm1:hook'
       within "#{fetch(:deploy_to)}/current/" do
         execute :bundle, :exec, :"puma -C config/puma.rb -e #{fetch(:stage)}"
       end
@@ -64,7 +72,6 @@ namespace :app do
   desc 'Set webhook'
   task :start do
     on roles(:app) do
-      invoke 'rvm1:hook'
       within "#{fetch(:deploy_to)}/current/" do
         execute :bundle, :exec, :"RAILS_ENV=#{fetch(:stage)} rails telegram:bot:set_webhook"
       end
@@ -74,7 +81,6 @@ namespace :app do
   desc 'Stop application'
   task :stop do
     on roles(:app) do
-      invoke 'rvm1:hook'
       within "#{fetch(:deploy_to)}/current/" do
         execute :bundle, :exec, :'pumactl -F config/puma.rb stop'
       end
@@ -84,7 +90,6 @@ namespace :app do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
-      invoke 'rvm1:hook'
       within "#{fetch(:deploy_to)}/current/" do
         if test("[ -f #{deploy_to}/current/tmp/pids/puma.pid ]")
           execute :bundle, :exec, :'pumactl -F config/puma.rb stop'

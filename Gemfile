@@ -63,6 +63,7 @@ group :development do
   gem 'rubocop'
   gem 'capistrano', '~> 3.8.2'
   gem 'capistrano-bundler', '1.1.4', require: false
+  gem "capistrano-rails", require: false
   gem 'rvm1-capistrano3', '1.4.0', require: false
 end
 

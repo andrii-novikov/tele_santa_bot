@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_02_160627) do
+ActiveRecord::Schema.define(version: 2018_12_07_170404) do
 
   create_table "nicknames", force: :cascade do |t|
-    t.string "text"
+    t.string "accusative"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "genitive"
     t.index ["user_id"], name: "index_nicknames_on_user_id"
   end
 

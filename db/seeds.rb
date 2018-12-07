@@ -1,20 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
+Nickname.destroy_all
 
 [
-  'Бармалей',
-  'Вини-Пух',
-  'Пятачок',
-  'Дюймовочка',
-  'Незнайка',
-  'Крокодил Гена',
-  'Шапокляк',
+  ['Бармалей', 'Бармалея'],
+  ['Вини-Пух', 'Вини-Пуха'],
+  ['Пятачок', 'Пятачка'],
+  ['Дюймовочка', 'Дюймовочки'],
+  ['Незнайка', 'Незнайки'],
+  ['Крокодил Гена ', 'Крокодила Гены'],
+  ['Шапокляк', 'Шапокляк'],
+  ['Чиполино', 'Чиполино'],
+  ['Колобок', 'Колобка'],
+  ['Соловей-Разбойник', 'Соловья-Разбойника'],
+  ['Русалочка', 'Русалочки']
 ].each do |nickname|
-  Nickname.where(text: nickname).first_or_create
+  Nickname.where(genitive: nickname[0], accusative: nickname[1]).first_or_create
+end
+
+User.find_each do |u|
+  u.update(nickname: Nickname.free.sample)
 end

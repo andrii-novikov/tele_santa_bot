@@ -1,56 +1,28 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   services:
     message_service:
-      added_to_group: 'Хохохо. Всех с наступающим новым годом. Если ты желаешь получить подарок от меня, напиши мне лично (@tele_santa_bot) что бы ты хотел получить.'
-      didnt_understand: "Хм. Не совсем тебя понял. Если ты хочешь высказать свои пожелания напиши(нажми) /i_wish.\n Так же ты можешь использовать такие команды: \n/my_wish - просмотреть твое желание."
+      added_to_group: 'Хохохо. Всех с наступающим Новым Годом.
+Если ты желаешь получить подарок от меня, напиши мне лично (@tele_santa_bot) что бы ты хотел.'
+      didnt_understand: "Хм. Не совсем тебя понял.\nЕсли ты хочешь написать письмо тайному Санте напиши(нажми) /i_wish.\nДля того что бы просмотреть твое текущее письмо напиши /my_wish.\nЕсли ты хочешь узнать что ты должен подарить напиши /gift"
     santa_assign_service:
       not_enough_users: 'Надо больше пользователей.'
-      notification: "Хей Хей. Я тут провел розыгрыш и решил что ты должен подарить что-то из этого:\n%{wish}.\nИ подпиши его 'Для %{nickname}'. Твой подарок будет подписан: 'для %{your_nickname}'"
-
+      notification: "Хей Хей. Наконец все собрались с духом и определились с желаниями."
+    user_gift_text_service:
+      text: "Ты будешь тайным сантой для `%{recepient_nickname}`. Он(Она) пожелал(а): ```\n%{wish}```\nНе забудь подписать подарок.
+      \nАга, и чуть не забыл, твой подарок будет подписан: `для %{your_nickname}`"
   telegram_webhooks:
     start:
-      hi: "Приветсутвую тебя мой юный друг.\nПеред тем как ты захочешь написать мне письмо напиши заветное слово\n/i_wish. \nКак только все определятся с подарками я напишу тебе что будешь дарить ты."
+      hi: "Приветсутвую тебя мой юный друг.\nПеред тем как ты захочешь написать мне письмо напиши (нажми) заветное слово /i_wish.\n
+Что бы посмотреть что ты ты пожелал напиши /my_wish."
     i_wish:
       wish_requested: 'Что бы ты хотел получить от меня?'
     my_wish:
       wish: 'Ты попросил: %{wish}'
       no_wish: 'Пока что ты еще ничего не попросил. Что бы попросить напиши(нажми) /i_wish'
     wish_from_message:
-      wish_accepted: 'Неплохо, постараюсь найти для тебя все что ты пожелал'
+      wish_accepted: "Неплохо, постараюсь найти для тебя все что ты пожелал.\nЕсли ты захочешь изменить свои желания заново напиши /i_wish и напиши новые письмо."
     registered_users:
       registered_users: "Пока что зарегестрировались:\n%{users}"
     gift:
       no_recipient: "Я пока что еще не знаю что ты будешь дарить."
       gift: "Тебя попросили подарить что-то из этого:\n%{wish}"
-

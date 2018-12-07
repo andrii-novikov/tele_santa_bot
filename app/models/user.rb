@@ -12,8 +12,8 @@ class User < ApplicationRecord
   validates :telegram_id, uniqueness: true, presence: true
   validates :santa_id, uniqueness: true, allow_nil: true
 
-  def send_message(text)
-    Telegram.bot.send_message(chat_id: telegram_id, text: text)
+  def send_message(text, **options)
+    Telegram.bot.send_message(options.merge(chat_id: telegram_id, text: text))
   end
 
   def display_name

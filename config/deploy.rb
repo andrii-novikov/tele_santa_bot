@@ -34,8 +34,21 @@ namespace :deploy do
       upload!("config/master.key", "#{deploy_to}/shared/config/master.key")
     end
   end
+
+  desc 'Seeds database'
+  task :seed do
+    on roles(:app) do
+      invoke 'rvm1:hook'
+      within release_path do
+        execute :bundle, :exec, :"rake db:seed RAILS_ENV=#{fetch(:stage)}"
+      end
+    end
+  end
+
+  after :finished, 'deploy:seed'
   after :finished, 'app:restart'
 end
+
 
 namespace :app do
   desc 'Start application'
@@ -44,6 +57,16 @@ namespace :app do
       invoke 'rvm1:hook'
       within "#{fetch(:deploy_to)}/current/" do
         execute :bundle, :exec, :"puma -C config/puma.rb -e #{fetch(:stage)}"
+      end
+    end
+  end
+
+  desc 'Set webhook'
+  task :start do
+    on roles(:app) do
+      invoke 'rvm1:hook'
+      within "#{fetch(:deploy_to)}/current/" do
+        execute :bundle, :exec, :"RAILS_ENV=#{fetch(:stage)} rails telegram:bot:set_webhook"
       end
     end
   end

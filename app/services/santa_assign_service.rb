@@ -34,10 +34,8 @@ class SantaAssignService < BaseService
 
   def notify_users
     users.each do |user|
-      nick = Petrovich(firstname: user.recipient.nickname.text).to(:genitive)
-      your_nickname = Petrovich(firstname: user.nickname.text).to(:genitive)
-      text = I18n.t('services.santa_assign_service.notification', wish: user.recipient.wish, nickname: nick, your_nickname: your_nickname)
-      user.send_message(text)
+      user.send_message(I18n.t('services.santa_assign_service.notification'))
+      user.send_message(UserGiftTextService.call(user), parse_mode: :Markdown)
     end
   end
 end

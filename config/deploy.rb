@@ -70,10 +70,10 @@ namespace :app do
   end
 
   desc 'Set webhook'
-  task :start do
+  task :set_webhook do
     on roles(:app) do
       within "#{fetch(:deploy_to)}/current/" do
-        execute :bundle, :exec, :"RAILS_ENV=#{fetch(:stage)} rails telegram:bot:set_webhook"
+        execute :bundle, :exec, :"rails telegram:bot:set_webhook RAILS_ENV=#{fetch(:stage)}"
       end
     end
   end

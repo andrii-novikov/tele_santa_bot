@@ -7,10 +7,15 @@ class MessageService < BaseService
 
   def call
     return add_to_group_message if added_to_group?
+    return ololo if message[:text]&.match(%r{(olo|lol|лол|оло)})
     didnt_understand
   end
 
   private
+
+  def ololo
+    ["Тебе что нечего делать?", "ололоололо", 'лоооооол', "Ты что дурак? Я же тебя русским языком сказал что делать"].sample
+  end
 
   def didnt_understand
     I18n.t('services.message_service.didnt_understand')

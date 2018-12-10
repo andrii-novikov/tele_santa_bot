@@ -7,7 +7,7 @@ class MessageService < BaseService
 
   def call
     return add_to_group_message if added_to_group?
-    return ololo if message[:text]&.match(%r{(olo|lol|лол|оло)})
+    return ololo if message[:text]&.match(%r{(olo|lol|лол|оло)}i)
     didnt_understand
   end
 
